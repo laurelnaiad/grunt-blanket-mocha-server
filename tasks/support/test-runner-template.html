@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <style>
+div {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+#mocha, #mocha div {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#blanket-main {
+  padding-left: 20px;
+  padding-right: 0px;
+}
+#blanket-main div {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+    </style>
+
+
+    <!-- mochaCssPath -->
+    <link rel="stylesheet" href="<%= mochaCssPath %>">
+
+    <style>
+#mocha {
+  margin-bottom: 40px;
+}
+
+#mocha-stats {
+  position: fixed;
+  top: 15px;
+  right: 10px;
+  font-size: 12px;
+  margin: 0;
+  color: #888;
+}
+
+#mocha-stats .progress {
+  float: right;
+  padding-top: 0;
+}
+
+#mocha-stats em {
+  color: black;
+}
+
+#mocha-stats a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#mocha-stats a:hover {
+  border-bottom: 1px solid #eee;
+}
+
+#mocha-stats li {
+  display: inline-block;
+  margin: 0 5px;
+  list-style: none;
+  padding-top: 11px;
+}
+    </style>
+
+
+    <!-- mochaPath -->
+    <script src="<%= mochaPath %>"
+      type="text/javascript" charset="utf-8"
+    ></script>
+
+    <!-- mochaSetupScript -->
+    <script type="text/javascript" charset="utf-8">
+        <%= mochaSetupScript %>
+    </script>
+
+    <!-- assertionLibs -->
+    <% _.forEach(assertionLibs, function(lib) { %>
+    <script src="<%= lib %>"
+      type="text/javascript" charset="utf-8">
+    </script>
+    <% }) %>
+
+    <!-- assertionsSetupScript -->
+    <script type="text/javascript" charset="utf-8">
+      <%= assertionsSetupScript %>
+    </script>
+
+    <!-- sutFiles -->
+    <% if (sutFiles) {_.forEach(sutFiles, function(file) { %>
+    <script src="<%= file %>"
+      type="text/javascript" charset="utf-8">
+    </script>
+    <% })} %>
+
+    <!-- testFiles -->
+    <% if (testFiles) {_.forEach(testFiles, function(file) { %>
+    <script src="<%= file %>"
+      type="text/javascript" charset="utf-8">
+    </script>
+    <% })} %>
+
+  </head>
+
+  <body class="mocha-report">
+    <div id="mocha"></div>
+
+    <% if (!noCoverage) { %>
+      <!-- blanketPath and blanketOptions -->
+      <script type="text/javascript" charset="utf-8"
+        src="<%= blanketPath %>"
+        <%= blanketOptions %>
+      ></script>
+
+      <!-- gruntReporterPath and blanketPhantomOptions -->
+      <script type="text/javascript" charset="utf-8">
+        if (window.PHANTOMJS) {
+          blanket.options(
+            "reporter",
+            "<%= gruntReporterPath %>"
+          );
+          <%= blanketPhantomOptions %>
+        }
+      </script>
+
+      <!-- mochaBlanketPath -->
+      <script type="text/javascript" charset="utf-8"
+        src="<%= mochaBlanketPath%>"
+      ></script>
+
+    <% } %>
+
+  </body>
+</html>

@@ -1,0 +1,5 @@
+demo/test-runner.html
+test/test-runner.html
+test/coverage.log
+test/coverage.html
+node_modules
