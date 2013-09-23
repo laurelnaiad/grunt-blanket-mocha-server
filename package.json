@@ -41,7 +41,6 @@
   "devDependencies": {
     "grunt": "~0.4.0",
     "chai": "~1.8.0",
-    "jsonlint": "~1.6.0",
     "matchdep": "~0.1.2",
     "chai-jquery": "~1.1.1",
     "grunt-contrib-watch": "~0.5.3",
@@ -51,7 +50,6 @@
     "travis-cov": "~0.2.4",
     "mocha": "~1.13.0",
     "mocha-lcov-reporter": "0.0.1",
-    "grunt-mocha-cov": "0.0.7",
     "expect": "0.0.2",
     "coveralls": "~2.3.0",
     "grunt-readme-generator": "~0.3.41",
