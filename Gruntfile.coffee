@@ -71,13 +71,12 @@ module.exports = (grunt) ->
       demo:
         options:
           port: 3001
-          testConfig:
-            htmlFile: 'demo/test-runner.html'
-            sutFiles: [ 'demo/src/**/*.js' ]
-            testFiles: [ 'demo/test/**/*.spec.js' ]
-            blanketOptions: {
-              'data-cover-only': '//demo\/src\//'
-            }
+          htmlFile: 'demo/test-runner.html'
+          sutFiles: [ 'demo/src/**/*.js' ]
+          testFiles: [ 'demo/test/**/*.spec.js' ]
+          blanketOptions: {
+            'data-cover-only': '//demo\/src\//'
+          }
 
     blanket_mocha:
       demo:

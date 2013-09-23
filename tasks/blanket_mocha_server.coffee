@@ -144,53 +144,52 @@ module.exports = (grunt) ->
       gbmSupport = process.cwd() + '/node_modules/grunt-blanket-mocha/support/'
 
       defaultOptions =
-        testConfig:
-          server:                 true
-          htmlFile:               null
-          sutFiles:               null
-          testFiles:              null
-          blanketOptions:         null
-          blanketPhantomOptions:  null
-          noCoverage:             false
-          mochaPath:              gbmsLib + 'mocha.js'
-          mochaCssPath:           gbmsLib + 'mocha.css'
-          mochaSetupScript:       'mocha.setup(\'bdd\');'
-          blanketPath:            gbmsLib + 'blanket.js'
-          gruntReporterPath:      gbmSupport + 'grunt-reporter.js'
-          mochaBlanketPath:       gbmSupport + 'mocha-blanket.js'
-          assertionLibs:          gbmsLib + 'chai.js'
-          assertionsSetupScript:
-              'window.expect = chai.expect; var should = chai.should();'
-          runnerTemplate:         gbmsSupport + 'test-runner-template.html'
+        server:                 true
+        htmlFile:               null
+        sutFiles:               null
+        testFiles:              null
+        blanketOptions:         null
+        blanketPhantomOptions:  null
+        noCoverage:             false
+        mochaPath:              gbmsLib + 'mocha.js'
+        mochaCssPath:           gbmsLib + 'mocha.css'
+        mochaSetupScript:       'mocha.setup(\'bdd\');'
+        blanketPath:            gbmsLib + 'blanket.js'
+        gruntReporterPath:      gbmSupport + 'grunt-reporter.js'
+        mochaBlanketPath:       gbmSupport + 'mocha-blanket.js'
+        assertionLibs:          gbmsLib + 'chai.js'
+        assertionsSetupScript:
+            'window.expect = chai.expect; var should = chai.should();'
+        runnerTemplate:         gbmsSupport + 'test-runner-template.html'
 
       options = _.merge defaultOptions, @options()
 
-      testConfig = options.testConfig
+      config = options
 
-      resolveFile grunt, testConfig, 'mochaPath', 1
-      resolveFile grunt, testConfig, 'mochaCssPath', 0
-      resolveFile grunt, testConfig, 'blanketPath', 0
-      resolveFile grunt, testConfig, 'gruntReporterPath', 0
-      resolveFile grunt, testConfig, 'mochaBlanketPath', 0
+      resolveFile config, 'mochaPath', 1
+      resolveFile config, 'mochaCssPath', 0
+      resolveFile config, 'blanketPath', 0
+      resolveFile config, 'gruntReporterPath', 0
+      resolveFile config, 'mochaBlanketPath', 0
 
-      expandFiles grunt, testConfig, 'assertionLibs', 1
+      expandFiles config, 'assertionLibs', 1
 
-      expandFiles grunt, testConfig, 'sutFiles'
-      expandFiles grunt, testConfig, 'testFiles'
+      expandFiles config, 'sutFiles'
+      expandFiles config, 'testFiles'
 
-      testConfig.runnerTemplate = path.resolve testConfig.runnerTemplate
-      if !fs.existsSync(testConfig.runnerTemplate)
-        grunt.fatal "Specified runnerTemplate (#{testConfig.runnerTempalate} " +
+      config.runnerTemplate = path.resolve config.runnerTemplate
+      if !fs.existsSync(config.runnerTemplate)
+        grunt.fatal "Specified runnerTemplate (#{config.runnerTempalate} " +
             ") not found."
 
-      testConfig.assertionsSetupScript
+      config.assertionsSetupScript
 
-      testConfig.blanketOptions = produceAttributes testConfig.blanketOptions
+      config.blanketOptions = produceAttributes config.blanketOptions
 
-      testConfig.blanketPhantomOptions =
-              producePhantomOptions testConfig.blanketPhantomOptions
+      config.blanketPhantomOptions =
+              producePhantomOptions config.blanketPhantomOptions
 
-      runnerTarget = path.resolve testConfig.htmlFile
+      runnerTarget = path.resolve config.htmlFile
       runnerTargetDir = runnerTarget.replace /\/[^\/]*$/, '/'
       if !fs.existsSync(runnerTargetDir)
         grunt.log.writeln 'making runner directory: ' + runnerTargetDir
@@ -200,8 +199,8 @@ module.exports = (grunt) ->
       fs.writeFileSync(
         runnerTarget,
         grunt.template.process(
-          fs.readFileSync(testConfig.runnerTemplate, 'utf8'),
-          { data: testConfig }
+          fs.readFileSync(config.runnerTemplate, 'utf8'),
+          { data: config }
         )
       )
 

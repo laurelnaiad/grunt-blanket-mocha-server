@@ -7,16 +7,14 @@ blanket_mocha_server: {
   demo: {
     options: {
       port: 3001,
-      testConfig: {
-        htmlFile: 'demo/test-runner.html',
-        // system-under-test will be all js files below demo/src
-        sutFiles: [ 'demo/src/**/*.js' ],
-        // test files are *.spec.js files found under demo/test
-        testFiles: [ 'demo/test/**/*.spec.js' ]
-        blanketOptions: {
-          // only demo/src files will be coverage-tested
-          'data-cover-only': '//demo\/src\//'
-        }
+      htmlFile: 'demo/test-runner.html',
+      // system-under-test will be all js files below demo/src
+      sutFiles: [ 'demo/src/**/*.js' ],
+      // test files are *.spec.js files found under demo/test
+      testFiles: [ 'demo/test/**/*.spec.js' ],
+      blanketOptions: {
+        // only demo/src files will be coverage-tested
+        'data-cover-only': '//demo\/src\//'
       }
     }
   }
