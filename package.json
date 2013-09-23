@@ -49,13 +49,14 @@
     "blanket": "~1.1.5",
     "travis-cov": "~0.2.4",
     "mocha": "~1.13.0",
-    "mocha-lcov-reporter": "0.0.1",
-    "expect": "0.0.2",
+    "mocha-lcov-reporter": "~0.0.1",
+    "expect": "~0.0.2",
     "coveralls": "~2.3.0",
     "grunt-readme-generator": "~0.3.41",
     "grunt-blanket-mocha": "~0.3.1",
     "grunt-conventional-changelog": "~1.0.0",
-    "portfinder": "~0.2.1"
+    "portfinder": "~0.2.1",
+    "grunt-release": "~0.5.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.0",
