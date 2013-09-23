@@ -94,9 +94,6 @@ module.exports = (grunt) ->
           table_of_contents: true
           toc_extra_links: []
           banner: 'banner.md'
-          # has_travis: true
-          # github_username: 'stu-salsbury'
-          # travis_branch: 'master'
           generate_footer: true
           generate_title: false
           h1: '#'
@@ -107,9 +104,9 @@ module.exports = (grunt) ->
           'getting-started.md': 'Getting Started'
           'overview.md': 'Overview'
           'options.md': 'Options'
-          'contributing.md': 'Contributing'
+          '../../CONTRIBUTING.md': 'Contributing'
           'faq.md': 'FAQ'
-          # '../../CHANGELOG.md': 'Release History'
+          'release-history.md': 'Release History'
           'license.md': 'License'
 
     changelog: {}
