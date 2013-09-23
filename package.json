@@ -54,7 +54,8 @@
     "coveralls": "~2.3.0",
     "grunt-readme-generator": "~0.3.41",
     "grunt-blanket-mocha": "~0.3.1",
-    "grunt-conventional-changelog": "~1.0.0"
+    "grunt-conventional-changelog": "~1.0.0",
+    "portfinder": "~0.2.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.0",
