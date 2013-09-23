@@ -20,26 +20,31 @@ module.exports = (grunt) ->
 
     pkg: grunt.file.readJSON('package.json')
 
-    # mochacov:
-    #   options:
-    #     files: ['test/**/*.spec.coffee']
-    #     require: [
-    #       'coffee-script'
-    #     ]
-    #     coverage: true
-    #   test:
-    #     options:
-    #       # coverage: true
-    #       reporter: 'nyan'
-    #   'coverage':
-    #       options:
-    #         coverage: true
-    #         reporter: 'mocha-lcov-reporter'
-    #   coveralls:
-    #     options:
-    #       coveralls:
-    #         serviceName: 'travis-ci'
+    ##
+    # demo config
+    #
+    blanket_mocha_server:
+      demo:
+        options:
+          port: 3001
+          htmlFile: 'demo/test-runner.html'
+          sutFiles: [ 'demo/src/**/*.js' ]
+          testFiles: [ 'demo/test/**/*.spec.js' ]
+          blanketOptions: {
+            'data-cover-only': '//demo\/src\//'
+          }
 
+    blanket_mocha:
+      demo:
+        options:
+          urls: [ 'http://localhost:3001/demo/test-runner.html' ]
+          reporter: 'Nyan'
+          threshold: 80
+
+
+    ##
+    # test config
+    #
     mochaTest:
       test:
         options:
@@ -66,25 +71,9 @@ module.exports = (grunt) ->
           reporter: 'travis-cov'
         src: [ 'test/**/*.spec.coffee' ]
 
-
-    blanket_mocha_server:
-      demo:
-        options:
-          port: 3001
-          htmlFile: 'demo/test-runner.html'
-          sutFiles: [ 'demo/src/**/*.js' ]
-          testFiles: [ 'demo/test/**/*.spec.js' ]
-          blanketOptions: {
-            'data-cover-only': '//demo\/src\//'
-          }
-
-    blanket_mocha:
-      demo:
-        options:
-          urls: [ 'http://localhost:3001/demo/test-runner.html' ]
-          reporter: 'Nyan'
-          threshold: 80
-
+    ##
+    # repository management config
+    #
     readme_generator:
       readme:
         options:
@@ -113,6 +102,7 @@ module.exports = (grunt) ->
     watch: {}
   }
 
+  # send coverage info to coveralls
   grunt.registerTask 'cov-to-coveralls',
       'Run node-coveralls with an lcov file',
       () ->
@@ -128,16 +118,20 @@ module.exports = (grunt) ->
           done(code == 0)
         coveralls.stdin.end require('fs').readFileSync(lcovLogPath , 'utf8')
 
+  # generate documentation
   grunt.registerTask 'docs', ['readme_generator']
 
-  grunt.registerTask 'demo', ['blanket_mocha_server:demo', 'blanket_mocha:demo', 'watch']
+  # basic demonstration
+  grunt.registerTask 'demo', ['blanket_mocha_server:demo', 'blanket_mocha:demo']
 
+  # for testing on workstation(s)
   grunt.registerTask 'test', [
     'mochaTest:test'
     'mochaTest:html-cov'
     'mochaTest:travis-cov'
   ]
 
+  # to be run on travis -- lcov instead of html, report to coveralls
   grunt.registerTask 'test-travis', [
     'mochaTest:test'
     'mochaTest:mocha-lcov'
