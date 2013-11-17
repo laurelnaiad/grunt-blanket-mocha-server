@@ -89,8 +89,8 @@ module.exports = (grunt) ->
           informative: false
         order:
           'introduction.md': 'Introduction'
-          'getting-started.md': 'Getting Started'
           'overview.md': 'Overview'
+          'getting-started.md': 'Getting Started'
           'options.md': 'Options'
           '../../CONTRIBUTING.md': 'Contributing'
           'faq.md': 'FAQ'
