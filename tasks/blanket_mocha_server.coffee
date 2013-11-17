@@ -52,17 +52,22 @@ module.exports = (grunt) ->
   resolveFile = (obj, prop) ->
     obj[prop] = path.resolve obj[prop]
     minViolationTest obj, prop
-    inAppPath = process.cwd() + '/node_modules/grunt-blanket-mocha-server'
-    if !(fs.existsSync(inAppPath))
-      obj[prop] = obj[prop].replace(
-        path.resolve(__dirname + '/..'),
-        ''
-      )
+
+    preNodeModulesMatch = obj[prop].match /^(.*)\/node_modules\/.*$/
+    if preNodeModulesMatch
+      obj[prop] = obj[prop].replace preNodeModulesMatch[1], ''
     else
-      obj[prop] = obj[prop].replace(
-        path.resolve(__dirname + '/..'),
-        '/node_modules/grunt-blanket-mocha-server'
-      )
+      inAppPath = process.cwd() + '/node_modules/grunt-blanket-mocha-server'
+      if !(fs.existsSync(inAppPath))
+        obj[prop] = obj[prop].replace(
+          path.resolve(__dirname + '/..'),
+          ''
+        )
+      else
+        obj[prop] = obj[prop].replace(
+          path.resolve(__dirname + '/..'),
+          '/node_modules/grunt-blanket-mocha-server'
+        )
     undefined
 
   ###*
@@ -151,7 +156,13 @@ module.exports = (grunt) ->
 
       gbmsLib = __dirname + '/../lib/'
       gbmsSupport = __dirname + '/support/'
-      gbmSupport = __dirname + '/../node_modules/grunt-blanket-mocha/support/'
+
+
+      gbmPath = '/node_modules/grunt-blanket-mocha/support'
+      if fs.existsSync(__dirname + '/..' + gbmPath)
+        gbmSupport = __dirname + '/..' + gbmPath + '/'
+      else
+        gbmSupport = process.cwd() + gbmPath + '/'
 
       defaultOptions =
         server:                 true
