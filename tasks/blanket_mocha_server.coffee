@@ -57,17 +57,24 @@ module.exports = (grunt) ->
     if preNodeModulesMatch
       obj[prop] = obj[prop].replace preNodeModulesMatch[1], ''
     else
-      inAppPath = process.cwd() + '/node_modules/grunt-blanket-mocha-server'
+      inAppPath = process.cwd() + path.sep + 'node_modules' + path.sep + 'grunt-blanket-mocha-server'
       if !(fs.existsSync(inAppPath))
         obj[prop] = obj[prop].replace(
           path.resolve(__dirname + '/..'),
           ''
         )
       else
+        # console.log obj[prop].red
+        # console.log path.resolve(__dirname + '/../..').green
+        # console.log path.resolve(__dirname + '\\..\\..').green
         obj[prop] = obj[prop].replace(
-          path.resolve(__dirname + '/..'),
-          '/node_modules/grunt-blanket-mocha-server'
+          path.resolve(__dirname + '/../..'),
+#          path.resolve(__dirname + '/..'),
+          '/node_modules'
+#          '/node_modules/grunt-blanket-mocha-server'
         )
+        # console.log obj[prop].yellow
+    obj[prop] = obj[prop].replace /[\\]/g, '/'
     undefined
 
   ###*
@@ -94,6 +101,7 @@ module.exports = (grunt) ->
       _.each obj[prop], (val, index) ->
         obj[prop][index] = path.resolve(val)
             .replace(path.resolve(process.cwd()), '')
+            .replace(/[\\]/g, '/')
 
     undefined
 
@@ -153,14 +161,15 @@ module.exports = (grunt) ->
     'Serve runtime-configured browser-based mocha tests with ' +
         'blanket.js coverage.',
     () ->
+      myDirName = __dirname.replace /[\\]/g, '/'
 
-      gbmsLib = __dirname + '/../lib/'
-      gbmsSupport = __dirname + '/support/'
+      gbmsLib = myDirName + '/../lib/'
+      gbmsSupport = myDirName + '/support/'
 
 
       gbmPath = '/node_modules/grunt-blanket-mocha/support'
-      if fs.existsSync(__dirname + '/..' + gbmPath)
-        gbmSupport = __dirname + '/..' + gbmPath + '/'
+      if fs.existsSync(myDirName + '/..' + gbmPath)
+        gbmSupport = myDirName + '/..' + gbmPath + '/'
       else
         gbmSupport = process.cwd() + gbmPath + '/'
 
@@ -211,7 +220,7 @@ module.exports = (grunt) ->
               producePhantomOptions config.blanketPhantomOptions
 
       runnerTarget = path.resolve config.htmlFile
-      runnerTargetDir = runnerTarget.replace /\/[^\/]*$/, '/'
+      runnerTargetDir = path.dirname(runnerTarget) # runnerTarget.replace /\/[^\/]*$/, '/'
       if !fs.existsSync(runnerTargetDir)
         grunt.log.writeln 'making runner directory: ' + runnerTargetDir
         fs.mkdirSync runnerTargetDir

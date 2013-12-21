@@ -1,6 +1,6 @@
 {
   "name": "grunt-blanket-mocha-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Easily serve mocha tests with (or without) blanket coverage. \"Goes Great\" with grunt-blanket-mocha.",
   "homepage": "https://github.com/stu-salsbury/grunt-blanket-mocha-server",
   "author": {
