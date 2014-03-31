@@ -29,7 +29,7 @@ module.exports = (grunt) ->
 
       if files.length < min
         grunt.fatal "Configuration property \"#{prop}\" did not match the " +
-            "minimum of #{min} files (it matched #{actual})."
+            "minimum of #{min} files (it matched #{files.length})."
 
       _.each files, (file) ->
         if !fs.existsSync(file)
