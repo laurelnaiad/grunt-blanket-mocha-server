@@ -53,7 +53,7 @@ module.exports = (grunt) ->
     obj[prop] = path.resolve obj[prop]
     minViolationTest obj, prop
 
-    preNodeModulesMatch = obj[prop].match /^(.*)\/node_modules\/.*$/
+    preNodeModulesMatch = obj[prop].match /^(.*\/)node_modules\/.*$/
     if preNodeModulesMatch
       obj[prop] = obj[prop].replace preNodeModulesMatch[1], ''
     else
@@ -100,7 +100,7 @@ module.exports = (grunt) ->
       # passed the tests -- no clean up the dir base
       _.each obj[prop], (val, index) ->
         obj[prop][index] = path.resolve(val)
-            .replace(path.resolve(process.cwd()), '')
+            .replace(path.resolve(process.cwd()) + '/', '')
             .replace(/[\\]/g, '/')
 
     undefined
