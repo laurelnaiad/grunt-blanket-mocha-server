@@ -27,7 +27,7 @@ It helps automate the use of the three great tools:
 
 * <a href="http://gruntjs.com" target="_blank" title="Grunt Website">Grunt</a>
 * <a href="http://blanketjs.org/" target="_blank" title="BlanketJS Website">Blanket</a>
-* <a href="http://visionmedia.github.io/mocha/" target="_blank" title="Mocha Website">Mocha</a>
+* <a href="http://mochajs.org/" target="_blank" title="Mocha Website">Mocha</a>
 
 **It is not distributed, maintained nor recommended by the
 authors of any of these tools.**
